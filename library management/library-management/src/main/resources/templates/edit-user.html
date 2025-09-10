@@ -1,26 +1,58 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Edit User</title>
-</head>
+
+<head th:replace="fragments/head :: head"></head>
+
 <body>
-<h2>Edit User</h2>
-<form th:action="@{'/admin/user/update/' + ${user.userId}}" th:object="${user}" method="post">
-    <label>Name:</label>
-    <input type="text" th:field="*{name}" th:placeholder="${user.name}" /><br><br>
+    <div class="container-scroller">
+        <div th:replace="fragments/navbar :: navbar"></div>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <div th:replace="fragments/sidebar :: sidebar"></div>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-md-12 grid-margin">
+                            <div class="container mt-5">
+                                <h2>Edit User</h2>
+                                <form th:action="@{'/admin/user/update/' + ${user.userId}}" th:object="${user}"
+                                    method="post">
+                                    <div class="mb-3">
+                                        <label class="form-label">Name:</label>
+                                        <input type="text" th:field="*{name}" th:placeholder="${user.name}"
+                                            class="form-control" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Username:</label>
+                                        <input type="text" th:field="*{userName}" th:placeholder="${user.userName}"
+                                            class="form-control" />
+                                    </div>
 
-    <label>Username:</label>
-    <input type="text" th:field="*{userName}" th:placeholder="${user.userName}" /><br><br>
+                                    <div class="mb-3">
+                                        <label class="form-label">Password:</label>
+                                        <input type="text" th:field="*{password}" th:placeholder="${user.password}"
+                                            class="form-control" />
+                                    </div>
 
-    <label>Password:</label>
-    <input type="password" th:field="*{password}" th:placeholder="${user.password}" /><br><br>
+                                    <div class="mb-3">
+                                        <label class="form-label">Role ID:</label>
+                                        <input type="text" th:field="*{roleId}" th:placeholder="${user.roleId}"
+                                            class="form-control" />
+                                    </div>
 
-    <label>Role ID:</label>
-    <input type="text" th:field="*{roleId}" th:placeholder="${user.roleId}" /><br><br>
-
-    <button type="submit">Save</button>
-</form>
+                                    <button type="submit" class="btn btn-success">Save</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- Footer -->
+                <div th:replace="fragments/footer :: footer"></div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
-
-

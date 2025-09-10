@@ -26,6 +26,9 @@ public class SecurityConfig {
     private static final String [] userUrls = {
             "/user/**"
     };
+      private static final String [] pagesUrls = {
+            "/pages/**"
+    };
 
 
     @Bean
@@ -36,6 +39,7 @@ public class SecurityConfig {
                         .requestMatchers(publicUrls).permitAll()
                         .requestMatchers("/admin/**").hasAnyAuthority("admin")
                         .requestMatchers(userUrls).hasAnyAuthority("user")
+                        .requestMatchers(pagesUrls).hasAnyAuthority("pages")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

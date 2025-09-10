@@ -1,0 +1,28 @@
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head"></head>
+
+<body>
+  <div class="container-scroller">
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <div th:replace="fragments/sidebar :: sidebar"></div>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+      
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- Footer -->
+        <div th:replace="fragments/footer :: footer"></div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
