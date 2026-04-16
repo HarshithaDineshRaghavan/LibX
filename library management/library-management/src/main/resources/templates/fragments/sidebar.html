@@ -1,4 +1,4 @@
-<div th:fragment="sidebar">
+<div th:fragment="sidebar" xmlns:th="http://www.w3.org/1999/xhtml">
   <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
       <li class="nav-item">
@@ -9,43 +9,71 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#ui-user" aria-expanded="false" aria-controls="ui-user">
-          <i class="mdi mdi-account menu-icon"></i>
-          <span class="menu-title">Users</span>
+            <i class="mdi mdi-account-group menu-icon"></i>
+            <span class="menu-title">Users</span>
           <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="ui-user">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" th:href="@{/admin/user/addUser}">Add</a></li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{/admin/user/list}">View</a></li>
-          </ul>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-          <i class="mdi mdi-circle-outline menu-icon"></i>
-          <span class="menu-title">UI Elements</span>
-          <i class="menu-arrow"></i>
-        </a>
-        <div class="collapse" id="ui-basic">
-          <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" th:href="@{/admin/pages/ui-features/buttons}">Buttons</a></li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{/admin/pages/ui-features/dropdowns}">Dropdowns</a></li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{/admin/pages/ui-features/typography}">Typography</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/pages/forms/basic_elements}">Basic Elements</a>
-            </li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{/admin/pages/charts/chartjs}">ChartJs</a></li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{/admin/pages/tables/basic-table}">Basic table</a></li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{/admin/pages/icons/font-awesome}">Font Awesome</a></li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{/admin/pages/samples/blank-page}"> Blank Page </a></li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{/admin/pages/samples/error-404}"> 404 </a></li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{/admin/pages/samples/error-500}"> 500 </a></li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{/admin/pages/samples/login}"> Login </a></li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{/admin/pages/samples/register}"> Register </a></li>
+              <li class="nav-item"> <a class="nav-link" th:href="@{/admin/user/list}">View User</a></li>
+            <li class="nav-item"> <a class="nav-link" th:href="@{/admin/user/addUser}">Add User</a></li>
 
           </ul>
         </div>
-      </li>     
+      </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-book" aria-expanded="false" aria-controls="ui-book">
+                <i class="mdi mdi-book-open-page-variant menu-icon"></i>
+                <span class="menu-title">Books</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-book">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" th:href="@{/admin/books/list}">View Book</a></li>
+                    <li class="nav-item"> <a class="nav-link" th:href="@{/admin/books/add}">Add Book</a></li>
+
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-borrow" aria-expanded="false">
+                <i class="mdi mdi-swap-horizontal-bold menu-icon"></i>
+                <span class="menu-title">Borrow</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-borrow">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" th:href="@{/admin/borrow/issue}">Issue Book</a></li>
+                    <li class="nav-item"> <a class="nav-link" th:href="@{/admin/borrow/return}">Return Book</a></li>
+                    <li class="nav-item"> <a class="nav-link" th:href="@{/admin/borrow/records}">Borrow Records</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#finesMenu"
+               aria-expanded="false" aria-controls="finesMenu">
+                <i class="mdi mdi-cash-multiple menu-icon"></i>
+                <span class="menu-title">Fines</span>
+                <i class="menu-arrow"></i>
+            </a>
+
+            <div class="collapse" id="finesMenu">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/fines/pending}">
+                            Pending Fines
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/fines/history}">
+                        Paid History
+                    </a>
+
+                    </li>
+                </ul>
+            </div>
+        </li>
+
     </ul>
   </nav>
 </div>

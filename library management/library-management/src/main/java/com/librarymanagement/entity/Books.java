@@ -29,9 +29,10 @@ public class Books {
     @Column(name = "genre")
     private String genre;
 
+    @Transient
+    private String authorName;
+
     @OneToMany
     @JoinColumn(name = "book_id")
     private List<Borrows> borrows = new ArrayList<>();
-
-
 }

@@ -1,0 +1,16 @@
+<tr th:each="f : ${fines}" xmlns:th="http://www.w3.org/1999/xhtml">
+    <td th:text="${f.userName}"></td>
+    <td th:text="${f.bookName}"></td>
+    <td th:text="${f.dueDate}"></td>
+    <td th:text="${f.daysOverdue}"></td>
+    <td th:text="${f.amount}"></td>
+    <td>
+        <span class="badge bg-warning text-dark">Pending</span>
+    </td>
+    <td>
+        <form th:action="@{/admin/fines/clear/{id}(id=${f.fineId})}" method="post">
+            <button class="btn btn-danger btn-sm">Clear Due</button>
+        </form>
+    </td>
+</tr>
+

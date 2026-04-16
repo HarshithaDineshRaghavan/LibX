@@ -2,52 +2,103 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/head :: head"></head>
+<head th:replace="~{fragments/head :: head}"></head>
 
 <body>
     <div class="container-scroller">
-        <div th:replace="fragments/navbar :: navbar"></div>
-        <!-- partial -->
+        <div th:replace="~{fragments/navbar :: navbar}"></div>
         <div class="container-fluid page-body-wrapper">
-            <div th:replace="fragments/sidebar :: sidebar"></div>
-            <!-- partial -->
+            <div th:replace="~{fragments/sidebar :: sidebar}"></div>
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
                         <div class="col-md-12 grid-margin">
                             <div class="container mt-5">
                                 <h2>All Users</h2>
+                                <div class="mb-3">
+                                    <input
+                                            type="text"
+                                            id="searchBox"
+                                            class="form-control"
+                                            placeholder="Search by name, username or email"
+                                    />
+                                </div>
+
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th>UserId</th>
                                             <th>Name</th>
                                             <th>Username</th>
+                                            <th>Email</th>
                                             <th>Role Id</th>
+                                            <th>Role</th>
+                                            <th>Membership</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="resultsBody">
                                         <tr th:each="u : ${users}">
                                             <td th:text="${u.userId}"></td>
                                             <td th:text="${u.name}"></td>
                                             <td th:text="${u.userName}"></td>
+                                            <td th:text="${u.email}"></td>
                                             <td th:text="${u.roleId}"></td>
                                             <td>
-                                                <a th:href="@{'/admin/user/edit/' + ${u.userId}}">Edit</a> |
-                                                <a th:href="@{'/admin/user/delete/' + ${u.userId}}"
-                                                    onclick="return confirm('Are you sure?')">Delete</a>
+                                                <span th:each="r : ${roles}"
+                                                      th:if="${r.roleId == u.roleId}"
+                                                      th:text="${r.role}">
+                                                </span>
                                             </td>
+                                            <td th:text="${u.membership}"></td>
+                                            <td>
+                                                <div style="display: flex; gap: 8px;">
+                                                    <a th:href="@{/admin/user/edit/{id}(id=${u.userId})}"
+                                                       class="btn btn-sm btn-primary">
+                                                        Edit
+                                                    </a>
+
+                                                    <a th:href="@{/admin/user/delete/{id}(id=${u.userId})}"
+                                                       class="btn btn-sm btn-danger"
+                                                       onclick="return confirm('Are you sure?')">
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </td>
+
+
                                         </tr>
+                                        <script>
+                                            const searchUrl = "/admin/user/search";
+
+                                            const input = document.getElementById("searchBox");
+                                            const results = document.getElementById("resultsBody");
+
+                                            let timer;
+
+                                            input.addEventListener("input", () => {
+                                                clearTimeout(timer);
+
+                                                timer = setTimeout(() => {
+                                                    const q = input.value || "";
+
+                                                    fetch(`${searchUrl}?q=${encodeURIComponent(q)}`)
+                                                        .then(res => res.text())
+                                                        .then(html => {
+                                                            results.innerHTML = html;
+                                                        });
+                                                }, 300);
+                                            });
+                                        </script>
+
                                     </tbody>
                                 </table>
+                                <a th:href="@{/home}" class="btn btn-secondary mt-3">Back</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- content-wrapper ends -->
-                <!-- Footer -->
-                <div th:replace="fragments/footer :: footer"></div>
+                <div th:replace="~{fragments/footer :: footer}"></div>
             </div>
         </div>
     </div>

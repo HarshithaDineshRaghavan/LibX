@@ -26,9 +26,6 @@ public class UsersController {
         this.usersService = usersService;
     }
 
-
-
-
     //@GetMapping("/addUser")
     //public String getAddUserPage(){
       //  System.out.println("UsersController.getAddUserPage");
@@ -47,6 +44,7 @@ public class UsersController {
     public String listAllUsers(Model model){
         List<Users> users = usersService.getAllUsers();
         model.addAttribute("users", users);
+        model.addAttribute("roles", rolesService.findAll());
         return "list-users";
     }
     @GetMapping("/delete/{id}")
@@ -61,8 +59,9 @@ public class UsersController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("user", user);
 
-        List<Roles> roles = usersService.getAllRoles();
-        model.addAttribute("roles", roles);
+        //List<Roles> roles = usersService.getAllRoles();
+        //model.addAttribute("roles", roles);
+        model.addAttribute("roles", rolesService.findAll());
 
 
         return "edit-user";
@@ -76,8 +75,8 @@ public class UsersController {
     }
     @GetMapping("/addUser")
     public String getAddUserPage(Model model) {
-        model.addAttribute("user", new UserRequest()); // empty DTO for form
-        model.addAttribute("roles", rolesService.findAll()); // roles dropdown
+        model.addAttribute("user", new UserRequest());
+        model.addAttribute("roles", rolesService.findAll());
         return "add-user";
     }
 
@@ -86,10 +85,14 @@ public class UsersController {
         usersService.saveUser(userRequest);
         return "redirect:/admin/user/list";
     }
+    @GetMapping("/search")
+    public String searchUsers(
+            @RequestParam(required = false) String q,
+            Model model
+    ) {
+        model.addAttribute("users", usersService.searchUsers(q));
+        return "users-table :: results";
+    }
 
 
 }
-
-
-
-

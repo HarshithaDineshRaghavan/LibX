@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body>
+<div class="container-scroller">
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+
+                <h2 class="mb-4">Return Book</h2>
+
+                <form th:action="@{/admin/borrow/return}" method="post">
+
+                    <div class="mb-3">
+                        <label>Select Borrow Record</label>
+                        <select name="borrowId" class="form-control" required>
+                            <option value="">Choose</option>
+
+                            <option th:each="r : ${records}"
+                                    th:value="${r.borrowId}"
+                                    th:text="${'Borrow ID: ' + r.borrowId
+                  + ' | User: ' + (r.userName != null ? r.userName : r.userId)
+                  + ' | Book: ' + (r.bookName != null ? r.bookName : r.bookId)
+                  + ' | Due: ' + r.dueDate}">
+                            </option>
+
+
+
+                        </select>
+
+                    </div>
+
+                    <button class="btn btn-primary mt-3" type="submit">Return Book</button>
+                </form>
+
+                <a th:href="@{/home}" class="btn btn-secondary mt-3">Back</a>
+
+            </div>
+
+            <div th:replace="~{fragments/footer :: footer}"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

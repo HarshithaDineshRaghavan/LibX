@@ -1,46 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/head :: head"></head>
+<head th:replace="~{fragments/head :: head}"></head>
 
 <body>
-  <div class="container-scroller">
-    <div th:replace="fragments/navbar :: navbar"></div>
-    <!-- partial -->
+<div class="container-scroller">
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
     <div class="container-fluid page-body-wrapper">
-      <div th:replace="fragments/sidebar :: sidebar"></div>
-      <!-- partial -->
-      <div class="main-panel">
-        <div class="content-wrapper">
-          <div class="row">
-            <div class="col-md-12 grid-margin">
-              <div class="container mt-5">
-                <h2>Add New User</h2>
-                <form th:action="@{/admin/user/save}" method="post">
-                  <div class="mb-3">
-                    <label class="form-label">Name</label>
-                    <input type="text" name="name" class="form-control" required>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">Username</label>
-                    <input type="text" name="userName" class="form-control" required>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control" required>
-                  </div>
-                  <button type="submit" class="btn btn-success">Add User</button>
-                </form>
-              </div>
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin">
+                        <div class="container mt-5">
+                            <h2>Add New User</h2>
+                            <form th:action="@{/admin/user/save}"
+                                  th:object="${user}"
+                                  method="post">
+
+                            <div class="mb-3">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Enter Name" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" name="userName" class="form-control" placeholder="Enter UserName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control" placeholder="Enter Mail" required />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Enter Password" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Membership:</label>
+                                    <select th:field="*{membership}" class="form-control" required>
+                                        <option value="" disabled selected>Select membership</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="btn btn-success">Add User</button>
+                                <a th:href="@{/admin/user/list}" class="btn btn-secondary">Back</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+
+            <div th:replace="~{fragments/footer :: footer}"></div>
         </div>
-        <!-- content-wrapper ends -->
-        <!-- Footer -->
-        <div th:replace="fragments/footer :: footer"></div>
-      </div>
     </div>
-  </div>
+</div>
 </body>
 
 </html>

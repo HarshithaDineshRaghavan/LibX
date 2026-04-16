@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/head :: head"></head>
+<head th:replace="~{fragments/head :: head}"></head>
 
 <body>
     <div class="container-scroller">
-        <div th:replace="fragments/navbar :: navbar"></div>
-        <!-- partial -->
+        <div th:replace="~{fragments/navbar :: navbar}"></div>
         <div class="container-fluid page-body-wrapper">
-            <div th:replace="fragments/sidebar :: sidebar"></div>
-            <!-- partial -->
+            <div th:replace="~{fragments/sidebar :: sidebar}"></div>
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
@@ -23,6 +21,7 @@
                                         <input type="text" th:field="*{name}" th:placeholder="${user.name}"
                                             class="form-control" />
                                     </div>
+
                                     <div class="mb-3">
                                         <label class="form-label">Username:</label>
                                         <input type="text" th:field="*{userName}" th:placeholder="${user.userName}"
@@ -34,11 +33,34 @@
                                         <input type="text" th:field="*{password}" th:placeholder="${user.password}"
                                             class="form-control" />
                                     </div>
-
                                     <div class="mb-3">
-                                        <label class="form-label">Role ID:</label>
-                                        <input type="text" th:field="*{roleId}" th:placeholder="${user.roleId}"
-                                            class="form-control" />
+                                        <label class="form-label">Email</label>
+                                        <input
+                                                type="email"
+                                                class="form-control"
+                                                name="email"
+                                                th:value="${user.email}"
+                                                required
+                                        />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Role:</label>
+                                        <select th:field="*{roleId}" class="form-control" required>
+                                            <option value="">Select Role</option>
+                                            <option th:each="r : ${roles}"
+                                                    th:value="${r.roleId}"
+                                                    th:text="${r.role + ' (id:' + r.roleId + ')'}"
+                                                    th:selected="${user.roleId == r.roleId}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Membership:</label>
+                                        <select th:field="*{membership}" class="form-control" required>
+                                            <option value="">Select Membership</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
                                     </div>
 
                                     <button type="submit" class="btn btn-success">Save</button>
@@ -47,9 +69,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- content-wrapper ends -->
-                <!-- Footer -->
-                <div th:replace="fragments/footer :: footer"></div>
+                <div th:replace="~{fragments/footer :: footer}"></div>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-(function($) {
+/*(function($) {
     'use strict';
     $(function() {
         if ($.cookie('majestic-pro-banner')!="true") {
@@ -33,3 +33,4 @@
           });
     })
 })(jQuery)
+*/

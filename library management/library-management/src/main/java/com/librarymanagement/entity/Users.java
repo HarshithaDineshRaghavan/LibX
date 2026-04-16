@@ -27,6 +27,21 @@ public class Users {
     @Column(name = "role_id")
     private Integer roleId;
 
+    @Column(name="membership")
+    private String membership;
+
+    @Column(nullable = false)
+    private String email;
+
+    private String phoneNumber;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private List<Borrows> borrows = new ArrayList<>();

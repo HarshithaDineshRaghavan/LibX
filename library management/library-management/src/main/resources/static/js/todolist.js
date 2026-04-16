@@ -1,4 +1,4 @@
-(function($) {
+/*(function($) {
   'use strict';
   $(function() {
     var todoListItem = $('.todo-list');
@@ -32,3 +32,4 @@
 
   });
 })(jQuery);
+*/

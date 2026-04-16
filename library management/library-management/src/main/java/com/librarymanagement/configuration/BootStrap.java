@@ -30,15 +30,13 @@ public class BootStrap {
     @Autowired
     private UsersRepository usersRepository;
 
-
-    //This will create roles while application bootup
     @PostConstruct
     public void createRoles(){
-        roles.forEach(it->{
-            Roles role = rolesRepository.findFirstByRole(it);
+        roles.forEach(roleName->{
+            Roles role = rolesRepository.findFirstByRole(roleName);
             if(role == null){
                 role = new Roles();
-                role.setRole(it);
+                role.setRole(roleName);
                 rolesRepository.save(role);
             }
         });
@@ -46,23 +44,22 @@ public class BootStrap {
 
     @PostConstruct
     @Transactional
-    //create default admin user
     public void createDefaultAdmin() {
         Users admin = usersRepository.findByUserName(adminUsername).orElse(null);
         if (admin == null) {
             System.out.println("BootStrap.createDefaultAdmin");
+
             admin = new Users();
             admin.setUserName(adminUsername);
-
             admin.setPassword(passwordEncoder.encode(adminpassword));
-            Roles role = rolesRepository.findFirstByRole("admin");
-            admin.setRoles(Set.of(role));
+
+            Roles adminRole = rolesRepository.findFirstByRole("admin");
+            admin.setRoleId(adminRole.getRoleId());
             usersRepository.save(admin);
             System.out.println("default admin Created");
         }else {
             System.out.println("admin already created");
         }
     }
-
 
 }

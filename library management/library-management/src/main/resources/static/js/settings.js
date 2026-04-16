@@ -1,4 +1,4 @@
-(function($) {
+/*(function($) {
   'use strict';
   $(function() {
     $(".nav-settings").on("click", function() {
@@ -89,3 +89,4 @@
     });
   });
 })(jQuery);
+*/

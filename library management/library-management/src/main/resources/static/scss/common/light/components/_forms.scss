@@ -31,7 +31,7 @@ select {
     outline: 1px solid $border-color;
     color: $input-placeholder-color;
     appearance: none;
-    background: url("../../../assets/images/arrow-down.svg");
+    background: none;
     background-repeat: no-repeat;
     background-position: 99% center;
 
@@ -56,7 +56,7 @@ select {
     outline: 1px solid $border-color;
     color: $input-placeholder-color;
     appearance: none;
-    background: url("../../../assets/images/arrow-down.svg");
+    background: none;
     background-repeat: no-repeat;
     background-position: 99% center;
 

@@ -12,12 +12,16 @@ public class GlobalExceptionHandler {
         model.addAttribute("user", new com.librarymanagement.dto.UserRequest()); // keep form populated
         return "add-user";
     }
-
-
+//    @ExceptionHandler(Exception.class)
+//    public String handleAllExceptions(Exception ex, Model model) {
+//        model.addAttribute("errorMessage", "An error has occurred");
+//        return "error";
+//    }
     @ExceptionHandler(Exception.class)
     public String handleAllExceptions(Exception ex, Model model) {
-        model.addAttribute("errorMessage", "An error has occurred");
-        return "error-page";
+        ex.printStackTrace();
+        model.addAttribute("errorMessage", ex.getMessage());
+        return "error";
     }
 
 }

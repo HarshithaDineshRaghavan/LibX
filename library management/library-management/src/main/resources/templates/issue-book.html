@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body>
+<div class="container-scroller">
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+
+                <h2 class="mb-4">Issue Book</h2>
+
+                <form th:action="@{/admin/borrow/issue}" method="post" class="form-group">
+
+                    <div class="mb-3">
+                        <label>User</label>
+                        <select name="userId" class="form-control" required>
+                            <option value="">Select User</option>
+                            <option th:each="u : ${users}"
+                                    th:value="${u.userId}"
+                                    th:text="${u.name + ' (' + u.userName + ')'}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Book</label>
+
+                        <div th:if="${selectedBook != null}">
+                            <input type="hidden" name="bookId" th:value="${selectedBook.bookId}">
+                            <input type="text" class="form-control"
+                                   th:value="${selectedBook.bookName}"
+                                   readonly>
+                        </div>
+
+                        <div th:if="${selectedBook == null}">
+                            <select name="bookId" class="form-control" required>
+                                <option value="">Select from Books List</option>
+
+                                <option th:each="b : ${books}"
+                                        th:value="${b.bookId}"
+                                        th:text="${b.bookName + ' (' + b.availableCopies + ' available)'}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary mt-3">Issue Book</button>
+                </form>
+
+                <a th:href="@{/admin/books/list}" class="btn btn-secondary mt-3">Back</a>
+
+            </div>
+
+            <div th:replace="~{fragments/footer :: footer}"></div>
+        </div>
+    </div>
+</div>
+
+<script th:if="${error == 'limit'}">
+    alert("User has reached the maximum borrow limit!");
+</script>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get("error");
+
+    if (error === "limit") {
+        alert("User has reached the maximum borrow limit!");
+    }
+
+    if (error === "noCopies") {
+        alert("No copies available to issue!");
+    }
+</script>
+
+</body>
+</html>

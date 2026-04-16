@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body>
+<div class="container-scroller">
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+
+                <h2 class="mb-4">Paid Fines History</h2>
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Book</th>
+                        <th>Amount</th>
+                        <th>Paid On</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="f : ${fines}">
+                        <td th:text="${f.userName}"></td>
+                        <td th:text="${f.bookName}"></td>
+                        <td th:text="${f.totalAmount}"></td>
+                        <td th:text="${f.paidDate}"></td>
+                        <td>
+                            <span class="badge bg-success">Paid</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div th:if="${#lists.isEmpty(fines)}">
+                    <p class="text-muted">No paid fines history</p>
+                </div>
+
+            </div>
+            <div th:replace="~{fragments/footer :: footer}"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

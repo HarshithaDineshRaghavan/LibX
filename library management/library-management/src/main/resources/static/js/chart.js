@@ -1,9 +1,9 @@
-$(function() {
+//$(function() {
   /* ChartJS
    * -------
    * Data and config for chartjs
    */
-  'use strict';
+ /*'use strict';
   var data = {
     labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
     datasets: [{
@@ -361,3 +361,4 @@ $(function() {
     });
   }
 });
+*/

@@ -16,7 +16,13 @@ public class SecurityConfig {
 
 
     private static final String [] publicUrls = {
-            "/login", "/css/**", "/js/**", "/images/**"
+            "/login",
+            "/css/**",
+            "/js/**",
+            "/images/**",
+            "/vendors/**",
+            "/assets/**",
+            "/favicon.ico"
     };
 
     private static final String [] adminUrls = {
@@ -37,9 +43,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(publicUrls).permitAll()
-                        .requestMatchers("/admin/**").hasAnyAuthority("admin")
-                        .requestMatchers(userUrls).hasAnyAuthority("user")
-                        .requestMatchers(pagesUrls).hasAnyAuthority("pages")
+                        .requestMatchers("/admin/**").hasAuthority("admin")
+                        .requestMatchers(userUrls).hasAuthority("user")
+                        .requestMatchers(pagesUrls).hasAuthority("pages")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -56,12 +62,10 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .maximumSessions(2)
                         .expiredUrl("/login?expired")
-                )
-                .addFilterBefore(customRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                );
+                //.addFilterBefore(customRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
 
         return http.build();
     }
-
-
-
 }

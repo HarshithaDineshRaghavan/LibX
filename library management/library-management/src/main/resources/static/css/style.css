@@ -23281,7 +23281,7 @@ select.tt-hint, .select2-container--default .select2-selection--single select.se
   outline: 1px solid #f3f3f3;
   color: #c9c8c8;
   appearance: none;
-  background: url("../../../assets/images/arrow-down.svg");
+  background: none;
   background-repeat: no-repeat;
   background-position: 99% center;
 }
@@ -23380,7 +23380,7 @@ select.form-select {
   outline: 1px solid #f3f3f3;
   color: #c9c8c8;
   appearance: none;
-  background: url("../../../assets/images/arrow-down.svg");
+  background: none;
   background-repeat: no-repeat;
   background-position: 99% center;
 }
@@ -25867,6 +25867,21 @@ dl li {
     -webkit-transform: rotate(360deg);
   }
 }
+select.form-control,
+select.form-select {
+    color: #212529 !important;
+    background-color: #ffffff !important;
+}
+.form-control {
+    height: 45px;
+    border-radius: 0;
+}
+
+select option {
+    color: #212529 !important;
+    background-color: #ffffff !important;
+}
+
 @keyframes spin {
   100% {
     -webkit-transform: rotate(360deg);

@@ -1,23 +1,17 @@
 package com.librarymanagement.dto;
 
-import jakarta.persistence.Column;
 import lombok.Data;
+import java.time.LocalDate;
 
 @Data
 public class BorrowRequest {
 
     private Integer borrowId;
-
     private Integer userId;
 
-    private String borrowDate;
-
-    private String dueDate;
-
-    private String returnDate;
+    private LocalDate borrowDate;
+    private LocalDate dueDate;
+    private LocalDate returnDate;
 
     private Boolean isReturned;
-
-
-
 }

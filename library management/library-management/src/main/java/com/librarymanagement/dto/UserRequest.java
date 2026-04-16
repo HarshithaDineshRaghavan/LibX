@@ -14,11 +14,19 @@ public class UserRequest {
     private String name;
 
     private String userName;
-
+    private String email;
     private String password;
 
     private Integer roleId;
-
     List<BorrowRequest> Borrows = new ArrayList<>();
+    private String membership;
+
+    public String getMembership() {
+        return membership;
+    }
+
+    public void setMembership(String membership) {
+        this.membership = membership;
+    }
 
 }

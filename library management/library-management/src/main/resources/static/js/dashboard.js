@@ -1,4 +1,4 @@
-(function($) {
+/*(function($) {
   'use strict';
   $(function() {
     if ($("#cash-sales-chart").length) {
@@ -1395,3 +1395,4 @@
 
   });
 })(jQuery);
+*/

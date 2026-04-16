@@ -1,34 +1,58 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Add Book</title>
-</head>
+
+<head th:replace="~{fragments/head :: head}"></head>
 <body>
-<h2>Add Book</h2>
+    <div class="container-scroller">
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin">
+                        <div class="container mt-5">
+                            <h2>Add Book</h2>
+                            <form th:action="@{/admin/books/save}" th:object="${book}" method="post">
 
-<form th:action="@{/books/save}" th:object="${book}" method="post">
-    <label>Book Name:</label>
-    <input type="text" th:field="*{bookName}" /><br><br>
+                            <div class="mb-3">
+                                    <label class="form-label">Book Name</label>
+                                    <input type="text" th:field="*{bookName}" class="form-control" placeholder="Enter book name" required>
+                                </div>
 
-    <label>Total Copies:</label>
-    <input type="number" th:field="*{totalCopies}" /><br><br>
+                                <div class="mb-3">
+                                    <label class="form-label">Genre</label>
+                                    <input type="text" th:field="*{genre}" class="form-control" placeholder="Enter genre" required>
+                                </div>
 
-    <label>Available Copies:</label>
-    <input type="number" th:field="*{availableCopies}" /><br><br>
+                                <div class="mb-3">
+                                    <label class="form-label">Total Copies</label>
+                                    <input type="number" th:field="*{totalCopies}" class="form-control" placeholder="Enter total copies" required>
+                                </div>
 
-    <label>Genre:</label>
-    <input type="text" th:field="*{genre}" /><br><br>
+                                <div class="mb-3">
+                                    <label class="form-label">Available Copies</label>
+                                    <input type="number" th:field="*{availableCopies}" class="form-control" placeholder="Enter available copies" required>
+                                </div>
 
-    <label>Author ID:</label>
-    <select th:field="*{authorId}">
-        <option th:each="id : ${authorIds}"
-                th:value="${id}"
-                th:text="${id}">
-        </option>
-    </select><br><br>
+                                <div class="mb-3">
+                                    <label class="form-label">Author Name</label>
+                                    <input type="text" th:field="*{authorName}" class="form-control" placeholder="Enter author name" required>
+                                </div>
 
-    <button type="submit">Save</button>
-</form>
 
+
+                                <button type="submit" class="btn btn-success">ADD</button>
+                                <a th:href="@{/admin/books/list}" class="btn btn-secondary">Back</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="~{fragments/footer :: footer}"></div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
+

@@ -40,8 +40,20 @@ public class UsersService {
         return usersRepository.findAll();
     }
     public void deleteUser(Integer id) {
+        Users user = usersRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id"));
+
+        boolean hasActiveBorrows = user.getBorrows()
+                .stream()
+                .anyMatch(b -> Boolean.FALSE.equals(b.getIsReturned()));
+
+        if (hasActiveBorrows) {
+            throw new IllegalStateException("Cannot delete user with active borrowed books");
+        }
+
         usersRepository.deleteById(id);
     }
+
 
     public Users updateUser(Integer id, Users updatedUser) {
         Users user = usersRepository.findById(id)
@@ -51,7 +63,7 @@ public class UsersService {
         user.setUserName(updatedUser.getUserName());
         user.setPassword(updatedUser.getPassword());
         user.setRoleId(updatedUser.getRoleId());
-
+        user.setEmail(updatedUser.getEmail());
         return usersRepository.save(user);
     }
     public List<Roles> getAllRoles() {
@@ -64,15 +76,33 @@ public class UsersService {
         }
 
         Users user = libraryUtils.mapDtoEntity(userRequest);
+        user.setMembership(userRequest.getMembership());
+        Roles defaultRole = rolesRepository.findFirstByRole("user");
+        if (defaultRole == null) {
+            throw new IllegalArgumentException("Default role not found: user");
+        }
 
-        Roles role = rolesRepository.findById(userRequest.getRoleId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid role ID"));
-        user.setRoles(Set.of(role));
-        user.setRoleId(role.getRoleId());
-
-
+        user.setRoleId(defaultRole.getRoleId());
+        user.setEmail(userRequest.getEmail());
+        user.setMembership(userRequest.getMembership());
         return usersRepository.save(user);
     }
+    public List<Users> searchUsers(String q) {
 
+        List<Users> users = usersRepository.findAll();
 
+        if (q == null || q.isBlank()) {
+            return users;
+        }
+
+        String s = q.toLowerCase();
+
+        return users.stream()
+                .filter(u ->
+                        (u.getName() != null && u.getName().toLowerCase().contains(s))
+                                || u.getUserName()!= null && u.getUserName().toLowerCase().contains(s)
+                                || u.getEmail()!= null && u.getEmail().toLowerCase().contains(s)
+                )
+                .toList();
+    }
 }

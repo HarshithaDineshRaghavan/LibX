@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body>
+<div class="container-scroller">
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <div class="container-fluid page-body-wrapper">
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+
+                <h2 class="mb-4">Pending Fines</h2>
+                <div class="mb-3">
+                    <input
+                            type="text"
+                            id="searchBox"
+                            class="form-control"
+                            placeholder="Search by user or book"
+                    />
+                </div>
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Book</th>
+                        <th>Due Date</th>
+                        <th>Days Overdue</th>
+                        <th>Fine Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="resultsBody">
+                    <tr th:each="f : ${fines}">
+                        <td th:text="${f.userName}"></td>
+                        <td th:text="${f.bookName}"></td>
+                        <td th:text="${f.dueDate}"></td>
+                        <td th:text="${f.daysOverdue}"></td>
+                        <td th:text="${f.amount}"></td>
+                        <td>
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        </td>
+                        <td>
+                            <form th:action="@{/admin/fines/clear/{id}(id=${f.fineId})}" method="post">
+                                <button class="btn btn-danger btn-sm">Clear Due</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+
+                <div th:if="${#lists.isEmpty(fines)}">
+                    <p class="text-muted">No pending fines</p>
+                </div>
+
+            </div>
+            <div th:replace="~{fragments/footer :: footer}"></div>
+        </div>
+    </div>
+</div>
+<script>
+    const input = document.getElementById("searchBox");
+    const results = document.getElementById("resultsBody");
+
+    let timer;
+
+    input.addEventListener("input", () => {
+        clearTimeout(timer);
+
+        timer = setTimeout(() => {
+            const q = input.value || "";
+
+            fetch(`/admin/fines/pending/search?q=${encodeURIComponent(q)}`)
+                .then(res => res.text())
+                .then(html => {
+                    results.innerHTML = html;
+                });
+        }, 300);
+    });
+</script>
+</body>
+</html>
